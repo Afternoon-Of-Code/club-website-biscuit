@@ -1,0 +1,15 @@
+---js
+const eleventyNavigation = {
+	key: "Archive",
+	order: 2
+};
+---
+<!--
+File: content/blog.njk
+Purpose: Blog archive page. Lists all posts using the postslist include.
+Student notes: Edit this file to change the archive page. For content edits, update files within `content/blog/`.
+-->
+<h1>Archive</h1>
+
+{% set postslist = collections.posts %}
+{% include "postslist.njk" %}

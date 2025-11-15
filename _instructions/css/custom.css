@@ -1,0 +1,15 @@
+/*
+ * File: css/custom.css
+ * Purpose: Small site utility styles. Includes helpers like .visually-hidden used for accessibility.
+ * Student notes: Prefer adding broader/theme styling in `css/student.css`. Only edit this file for small utilities with instructor approval.
+ */
+
+.visually-hidden:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
