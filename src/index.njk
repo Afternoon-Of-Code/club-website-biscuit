@@ -76,30 +76,35 @@ description: Represent South Asian cultures & embrace the student community
             const card = document.createElement('div');
             card.className = 'bg-primary border-2 border-primary rounded-xl p-6 overflow-hidden cursor-pointer event-card-hover';
 
-            // Check for image URL in various places Google Calendar might store it
-            console.log('Event data:', event);
-            let posterUrl = 'https://via.placeholder.com/400x300/236139/FEEFC6?text=Event+Poster';
+            // Try to get image from multiple sources
+            let imageUrl = '';
 
-            // Check attachments
+            // 1. Check attachments array
             if (event.attachments && event.attachments.length > 0) {
-              console.log('Attachments found:', event.attachments);
-              posterUrl = event.attachments[0].fileUrl || posterUrl;
+              imageUrl = event.attachments[0].fileUrl;
             }
 
-            // Check for image in description or other fields
-            if (event.description && event.description.includes('http')) {
-              const urlMatch = event.description.match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|webp))/i);
-              if (urlMatch) {
-                posterUrl = urlMatch[0];
-                console.log('Found image URL in description:', posterUrl);
-              }
+            // 2. Check for image in description
+            if (!imageUrl && event.description) {
+              const imgMatch = event.description.match(/https?:\/\/[^\s<>"]+?\.(jpg|jpeg|png|gif|webp)/i);
+              if (imgMatch) imageUrl = imgMatch[0];
+            }
+
+            // 3. Check htmlLink or other fields
+            if (!imageUrl && event.htmlLink) {
+              const linkMatch = event.htmlLink.match(/https?:\/\/[^\s<>"]+?\.(jpg|jpeg|png|gif|webp)/i);
+              if (linkMatch) imageUrl = linkMatch[0];
             }
 
             const date = new Date(event.start.dateTime || event.start.date);
             const dateStr = date.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'});
 
+            const imageHTML = imageUrl
+              ? `<img src="${imageUrl}" alt="${event.summary}" class="w-full h-40 rounded-lg mb-4 object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" /><div class="w-full h-40 rounded-lg mb-4 bg-gradient-to-br from-secondary to-accent" style="display:none;"></div>`
+              : `<div class="w-full h-40 rounded-lg mb-4 bg-gradient-to-br from-secondary to-accent"></div>`;
+
             card.innerHTML = `
-              <div class="w-full h-40 rounded-lg mb-4 bg-cover bg-center" style="background-image: url('${posterUrl}')"></div>
+              ${imageHTML}
               <p class="text-white font-bold mb-2 text-sm opacity-90">${dateStr}</p>
               <h3 class="text-xl font-semibold text-white mb-2">${event.summary || 'Untitled Event'}</h3>
               <p class="text-white text-sm opacity-90">${event.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}</p>
