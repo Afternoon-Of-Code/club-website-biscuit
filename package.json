@@ -1,0 +1,24 @@
+{
+  "name": "club-website-biscuit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afternoon-Of-Code/club-website-biscuit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Afternoon-Of-Code/club-website-biscuit/issues"
+  },
+  "homepage": "https://github.com/Afternoon-Of-Code/club-website-biscuit#readme",
+  "devDependencies": {
+    "eleventy": "^2.0.0"
+  }
+}
