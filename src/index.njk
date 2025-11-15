@@ -1,0 +1,254 @@
+---
+layout: base.njk
+title: Home - South Asian Student Society
+description: Represent South Asian cultures & embrace the student community
+---
+
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center pt-24 pb-8 px-4 sm:px-6 lg:px-8 relative hero-bg-fixed gradient-overlay" style="background-image: url('https://via.placeholder.com/1920x1080/8F0F22/3A210F?text=Hero+Background');">
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="animate-fade-in">
+        <div class="w-32 h-32 bg-primary rounded-full mb-6"></div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-4">
+          South Asian Student Society
+        </h1>
+        <p class="text-xl md:text-2xl text-text mb-8">
+          Represent South Asian cultures & embrace the student community
+        </p>
+        <a href="#" class="btn-hover inline-block bg-primary text-light px-8 py-4 rounded-lg font-bold shadow-lg">
+          Join us on Gator Hub
+        </a>
+      </div>
+
+      <div class="glass-effect border-2 border-text rounded-xl p-8 shadow-xl animate-slide-in-right" x-show="nextEvent" style="display: none;">
+        <h3 class="text-2xl font-bold text-background mb-4">Next Event</h3>
+        <div
+          class="w-full h-48 bg-secondary rounded-lg mb-4 bg-cover bg-center"
+          x-show="nextEvent"
+          :style="nextEvent ? `background-image: url('${getEventPoster(nextEvent)}');` : ''">
+        </div>
+        <h4 class="text-xl font-semibold text-background mb-2" x-text="nextEvent?.summary || 'Loading...'"></h4>
+        <p class="text-background font-bold mb-2" x-text="nextEvent ? formatDate(nextEvent.start.dateTime || nextEvent.start.date) : ''"></p>
+        <p class="text-background" x-text="nextEvent?.location || ''"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Upcoming Events Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="events">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+    Upcoming Events
+  </h2>
+
+  <div id="upcomingEventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8">
+    <!-- Events will be inserted here by JavaScript -->
+  </div>
+
+  <script>
+    document.addEventListener('alpine:initialized', () => {
+      const grid = document.getElementById('upcomingEventsGrid');
+
+      function waitAndRender() {
+        const app = Alpine.$data(document.body);
+
+        if (!app || !app.events) {
+          setTimeout(waitAndRender, 100);
+          return;
+        }
+
+        function renderEvents() {
+          const events = app.events.slice(0, 3);
+          grid.innerHTML = '';
+
+          if (events.length === 0 && !app.loading) {
+            grid.innerHTML = '<div class="col-span-3 text-center text-text"><p>No upcoming events at the moment. Check back soon!</p></div>';
+            return;
+          }
+
+          if (events.length === 0) {
+            grid.innerHTML = '<div class="col-span-3 text-center text-text"><p>Loading events...</p></div>';
+            return;
+          }
+
+          events.forEach(event => {
+            const card = document.createElement('div');
+            card.className = 'bg-primary border-2 border-primary rounded-xl p-6 overflow-hidden cursor-pointer event-card-hover';
+
+            // Check for image URL in various places Google Calendar might store it
+            console.log('Event data:', event);
+            let posterUrl = 'https://via.placeholder.com/400x300/236139/FEEFC6?text=Event+Poster';
+
+            // Check attachments
+            if (event.attachments && event.attachments.length > 0) {
+              console.log('Attachments found:', event.attachments);
+              posterUrl = event.attachments[0].fileUrl || posterUrl;
+            }
+
+            // Check for image in description or other fields
+            if (event.description && event.description.includes('http')) {
+              const urlMatch = event.description.match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|webp))/i);
+              if (urlMatch) {
+                posterUrl = urlMatch[0];
+                console.log('Found image URL in description:', posterUrl);
+              }
+            }
+
+            const date = new Date(event.start.dateTime || event.start.date);
+            const dateStr = date.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'});
+
+            card.innerHTML = `
+              <div class="w-full h-40 rounded-lg mb-4 bg-cover bg-center" style="background-image: url('${posterUrl}')"></div>
+              <p class="text-white font-bold mb-2 text-sm opacity-90">${dateStr}</p>
+              <h3 class="text-xl font-semibold text-white mb-2">${event.summary || 'Untitled Event'}</h3>
+              <p class="text-white text-sm opacity-90">${event.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}</p>
+            `;
+
+            grid.appendChild(card);
+          });
+        }
+
+        // Initial render
+        renderEvents();
+
+        // Re-render when events change
+        let lastCount = app.events.length;
+        setInterval(() => {
+          if (app.events.length !== lastCount) {
+            lastCount = app.events.length;
+            renderEvents();
+          }
+        }, 500);
+      }
+
+      waitAndRender();
+    });
+  </script>
+
+  <!-- Placeholder cards when no events (always show 3 cards) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8" x-show="false">
+    <div class="bg-primary border-2 border-primary rounded-xl p-6">
+      <div class="w-full h-40 rounded-lg mb-4 bg-secondary bg-opacity-30"></div>
+      <h3 class="text-lg font-semibold text-white mb-2 text-center">More events to be announced soon!</h3>
+    </div>
+    <div class="bg-primary border-2 border-primary rounded-xl p-6">
+      <div class="w-full h-40 rounded-lg mb-4 bg-secondary bg-opacity-30"></div>
+      <h3 class="text-lg font-semibold text-white mb-2 text-center">More events to be announced soon!</h3>
+    </div>
+    <div class="bg-primary border-2 border-primary rounded-xl p-6">
+      <div class="w-full h-40 rounded-lg mb-4 bg-secondary bg-opacity-30"></div>
+      <h3 class="text-lg font-semibold text-white mb-2 text-center">More events to be announced soon!</h3>
+    </div>
+  </div>
+
+  <div x-show="loading" class="text-center py-12">
+    <p class="text-xl text-text opacity-100">Loading events...</p>
+  </div>
+
+  <div class="text-center mt-8">
+    <a href="https://calendar.google.com" target="_blank" class="btn-hover inline-block bg-secondary text-light px-8 py-3 rounded-lg font-bold shadow-lg">
+      View Full Calendar
+    </a>
+  </div>
+</section>
+
+<!-- Social Media Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="socials">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+    Find Us on Our Socials!
+  </h2>
+
+  <div class="flex justify-center gap-8 mt-8">
+    <a href="#" class="social-icon-hover bg-primary text-light px-8 py-4 rounded-lg flex items-center justify-center shadow-lg font-bold text-lg">
+      Instagram
+    </a>
+    <a href="#" class="social-icon-hover bg-primary text-light px-8 py-4 rounded-lg flex items-center justify-center shadow-lg font-bold text-lg">
+      GatorHub
+    </a>
+  </div>
+</section>
+
+<!-- Mission & Stats Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="mission">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+    Our Mission
+  </h2>
+  <p class="text-center text-xl max-w-3xl mx-auto mb-12 text-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+    <div class="text-center p-8 bg-secondary bg-opacity-50 rounded-xl border border-text" x-data="statsCounter(150)">
+      <span class="text-5xl font-bold text-background block" x-text="count + '+'">150+</span>
+      <span class="text-background mt-2 block">Active Members</span>
+    </div>
+
+    <div class="text-center p-8 bg-secondary bg-opacity-50 rounded-xl border border-text" x-data="statsCounter(50)">
+      <span class="text-5xl font-bold text-background block" x-text="count + '+'">50+</span>
+      <span class="text-background mt-2 block">Events Per Year</span>
+    </div>
+
+    <div class="text-center p-8 bg-secondary bg-opacity-50 rounded-xl border border-text" x-data="statsCounter(10)">
+      <span class="text-5xl font-bold text-background block" x-text="count + '+'">10+</span>
+      <span class="text-background mt-2 block">Years Active</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="faq">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+    Frequently Asked Questions
+  </h2>
+
+  <div class="max-w-3xl mx-auto mt-8" x-data="faq()">
+    <div class="card-bg rounded-lg mb-4 overflow-hidden">
+      <div class="p-6 cursor-pointer flex justify-between items-center hover:bg-text hover:bg-opacity-10 transition-colors duration-300" @click="toggle(0)">
+        <h3 class="text-xl font-semibold text-background">What is SASS?</h3>
+        <span class="text-primary transition-transform duration-300" :class="{ 'rotate-180': isOpen(0) }">▼</span>
+      </div>
+      <div class="faq-answer-transition" :class="{ 'open': isOpen(0) }">
+        <div>
+          <p class="text-background py-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bg rounded-lg mb-4 overflow-hidden">
+      <div class="p-6 cursor-pointer flex justify-between items-center hover:bg-text hover:bg-opacity-10 transition-colors duration-300" @click="toggle(1)">
+        <h3 class="text-xl font-semibold text-background">How can I join?</h3>
+        <span class="text-primary transition-transform duration-300" :class="{ 'rotate-180': isOpen(1) }">▼</span>
+      </div>
+      <div class="faq-answer-transition" :class="{ 'open': isOpen(1) }">
+        <div>
+          <p class="text-background py-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bg rounded-lg mb-4 overflow-hidden">
+      <div class="p-6 cursor-pointer flex justify-between items-center hover:bg-text hover:bg-opacity-10 transition-colors duration-300" @click="toggle(2)">
+        <h3 class="text-xl font-semibold text-background">Do I need to be South Asian to join?</h3>
+        <span class="text-primary transition-transform duration-300" :class="{ 'rotate-180': isOpen(2) }">▼</span>
+      </div>
+      <div class="faq-answer-transition" :class="{ 'open': isOpen(2) }">
+        <div>
+          <p class="text-background py-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bg rounded-lg mb-4 overflow-hidden">
+      <div class="p-6 cursor-pointer flex justify-between items-center hover:bg-text hover:bg-opacity-10 transition-colors duration-300" @click="toggle(3)">
+        <h3 class="text-xl font-semibold text-background">What types of events do you host?</h3>
+        <span class="text-primary transition-transform duration-300" :class="{ 'rotate-180': isOpen(3) }">▼</span>
+      </div>
+      <div class="faq-answer-transition" :class="{ 'open': isOpen(3) }">
+        <div>
+          <p class="text-background py-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

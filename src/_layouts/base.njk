@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title or "South Asian Student Society" }}</title>
+  <meta name="description" content="{{ description or 'Represent South Asian cultures & embrace the student community' }}">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Custom JavaScript -->
+  <script src="/js/main.js"></script>
+</head>
+<body x-data="app" class="antialiased">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar-sticky shadow-lg animate-slide-down">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold text-text hover:text-primary transition-colors duration-300">
+          SASS
+        </a>
+        <ul class="flex gap-8">
+          <li><a href="/" class="nav-link-hover text-text font-medium">Home</a></li>
+          <li><a href="/events/" class="nav-link-hover text-text font-medium">Events</a></li>
+          <li><a href="/about/" class="nav-link-hover text-text font-medium">About</a></li>
+          <li><a href="/join/" class="nav-link-hover text-text font-medium">Join Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <!-- Theme Toggle Button - Disabled for now, keep for future use -->
+  <!-- <div x-data="themeToggle()" class="theme-toggle" @click="toggle()" :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'">
+    <svg x-show="!isDark" class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+    </svg>
+    <svg x-show="isDark" class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+  </div> -->
+
+  <!-- Footer -->
+  <footer class="section-overlay mt-16 py-12 text-center animate-fade-in">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex justify-center gap-8 mb-6 flex-wrap">
+        <a href="/" class="footer-link-hover text-text">Home</a>
+        <a href="/events/" class="footer-link-hover text-text">Events</a>
+        <a href="/about/" class="footer-link-hover text-text">About</a>
+        <a href="/join/" class="footer-link-hover text-text">Join Us</a>
+        <a href="mailto:contact@sass.edu" class="footer-link-hover text-text">Contact</a>
+      </nav>
+
+      <div class="text-text text-sm mt-4">
+        <p>&copy; {% year %} South Asian Student Society. All rights reserved.</p>
+        <p class="mt-2">Made with ❤️ by Anshu Pathak</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

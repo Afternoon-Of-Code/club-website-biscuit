@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    :root {
+        --color-primary: #8f0f22;
+        --color-secondary: #236139;
+        --color-accent: #df993a;
+        --color-background: #feefc6;
+        --color-text: #3a210f;
+    }
+
+    /* Dark theme colors - disabled for now, keep for future use */
+    /* body.dark-theme {
+        --color-primary: #8f0f22;
+        --color-secondary: #236139;
+        --color-accent: #df993a;
+        --color-background: #feefc6;
+        --color-text: #3a210f;
+    } */
+
+    body {
+        overflow-x: hidden;
+        transition:
+            background-color 0.3s,
+            color 0.3s;
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+}
+
+@layer components {
+    /* Navbar sticky styles */
+    .navbar-sticky {
+        @apply fixed top-0 left-0 right-0 z-50 transition-colors duration-300;
+        background-color: var(--color-background);
+        backdrop-filter: blur(10px);
+    }
+
+    /* Dark theme navbar - disabled for now */
+    /* body.dark-theme .navbar-sticky {
+        background-color: rgba(254, 239, 198, 0.95);
+    } */
+
+    /* Hero background fixed */
+    .hero-bg-fixed {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Event card hover effect */
+    .event-card-hover {
+        @apply transition-all duration-300 ease-in-out;
+    }
+
+    .event-card-hover:hover {
+        @apply -translate-y-1 shadow-xl;
+    }
+
+    /* Social icon hover */
+    .social-icon-hover {
+        @apply transition-all duration-300 ease-in-out;
+    }
+
+    .social-icon-hover:hover {
+        @apply scale-110 bg-secondary;
+    }
+
+    /* Button hover effects */
+    .btn-hover {
+        @apply transition-all duration-300 ease-in-out;
+    }
+
+    .btn-hover:hover {
+        @apply scale-105 -translate-y-0.5 shadow-xl;
+    }
+
+    /* FAQ accordion smooth transition */
+    .faq-answer-transition {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        transition:
+            grid-template-rows 0.4s ease-out,
+            opacity 0.4s ease-out;
+        @apply opacity-0;
+    }
+
+    .faq-answer-transition.open {
+        grid-template-rows: 1fr;
+        @apply opacity-100;
+    }
+
+    .faq-answer-transition > * {
+        min-height: 0;
+        @apply px-6;
+    }
+
+    /* Leader card animation */
+    .leader-card-animate {
+        @apply opacity-0 translate-y-8 transition-all duration-500 ease-out;
+    }
+
+    .leader-card-animate.visible {
+        @apply opacity-100 translate-y-0;
+    }
+
+    /* Timeline item animation */
+    .timeline-item-animate {
+        @apply opacity-0 translate-y-8 transition-all duration-500 ease-out;
+    }
+
+    .timeline-item-animate.visible {
+        @apply opacity-100 translate-y-0;
+    }
+
+    /* Image zoom on hover */
+    .image-zoom-hover {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .image-zoom-hover:hover {
+        @apply scale-105;
+    }
+
+    /* Footer link hover */
+    .footer-link-hover {
+        @apply transition-colors duration-300 ease-in-out;
+    }
+
+    .footer-link-hover:hover {
+        @apply text-primary;
+    }
+
+    /* Nav link hover */
+    .nav-link-hover {
+        @apply transition-all duration-300 ease-in-out;
+    }
+
+    .nav-link-hover:hover {
+        @apply text-primary scale-105;
+    }
+
+    /* Theme Toggle Button - disabled for now, keep for future use */
+    /* .theme-toggle {
+        @apply fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all duration-300 bg-primary border-2 border-primary;
+    }
+
+    body.dark-theme .theme-toggle {
+        @apply bg-accent border-accent;
+    }
+
+    .theme-toggle:hover {
+        @apply scale-110 shadow-xl;
+    }
+
+    .theme-toggle svg {
+        @apply w-6 h-6 transition-transform duration-300;
+    }
+
+    .theme-toggle .sun-icon {
+        color: #feefc6;
+    }
+
+    .theme-toggle .moon-icon {
+        color: #3a210f;
+    }
+
+    body.dark-theme .theme-toggle svg {
+        transform: rotate(180deg);
+    } */
+}
+
+@layer utilities {
+    /* Custom gradient backgrounds */
+    /* Gradient overlay */
+    .gradient-overlay {
+        background: linear-gradient(
+            rgba(58, 33, 15, 0.3),
+            rgba(58, 33, 15, 0.3)
+        );
+    }
+
+    /* Glass morphism effect */
+    .glass-effect {
+        @apply backdrop-blur-md transition-colors duration-300;
+        background-color: rgba(58, 33, 15, 0.9);
+        border: 1px solid rgba(254, 239, 198, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    /* Dark theme glass effect - disabled for now */
+    /* body.dark-theme .glass-effect {
+        background-color: rgba(254, 239, 198, 0.9);
+        border: 1px solid rgba(58, 33, 15, 0.2);
+    } */
+
+    /* Smooth shadow transitions */
+    .shadow-smooth {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .shadow-smooth:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Text gradient */
+    .text-gradient {
+        @apply bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent;
+    }
+
+    /* Light text for buttons on colored backgrounds */
+    .text-light {
+        color: #feefc6;
+    }
+
+    /* Card backgrounds that adapt to theme */
+    .card-bg {
+        @apply transition-colors duration-300 bg-secondary bg-opacity-70;
+        border: 1px solid #feefc6;
+    }
+
+    /* Dark theme card background - disabled for now */
+    /* body.dark-theme .card-bg {
+        background-color: rgba(254, 239, 198, 0.7);
+        border: 1px solid #3a210f;
+    } */
+
+    /* Section overlay that adapts to theme */
+    .section-overlay {
+        @apply transition-colors duration-300;
+        background-color: rgba(254, 239, 198, 0.1);
+    }
+
+    /* Dark theme section overlay - disabled for now */
+    /* body.dark-theme .section-overlay {
+        background-color: rgba(58, 33, 15, 0.1);
+    } */
+}

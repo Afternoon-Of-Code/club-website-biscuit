@@ -1,0 +1,222 @@
+---
+layout: base.njk
+title: About - South Asian Student Society
+description: Learn about our mission, values, and the amazing team behind SASS
+---
+
+<!-- About Hero -->
+<section class="min-h-[50vh] flex items-center pt-24 pb-8 px-4 sm:px-6 lg:px-8 relative hero-bg-fixed gradient-overlay" style="background-image: url('https://via.placeholder.com/1920x1080/236139/FEEFC6?text=Hero+Background');">
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="text-center animate-fade-in">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-text mb-4">
+        About SASS
+      </h1>
+      <p class="text-xl md:text-2xl text-text opacity-100">
+        Building bridges through culture, community, and connection
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Mission Statement -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="mission">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+    Our Mission
+  </h2>
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="text-xl leading-relaxed mb-8 text-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+    <p class="text-lg leading-relaxed text-text opacity-100">
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </div>
+</section>
+
+<!-- What We Do -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 section-overlay my-16">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+      What We Do
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+      <div class="text-left p-8 card-bg rounded-xl">
+        <h3 class="text-primary mb-4 text-2xl font-semibold">🎭 Cultural Events</h3>
+        <p class="text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Celebrate diverse South Asian traditions and festivals together.</p>
+      </div>
+
+      <div class="text-left p-8 card-bg rounded-xl">
+        <h3 class="text-primary mb-4 text-2xl font-semibold">📚 Educational Workshops</h3>
+        <p class="text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Learn about history, arts, and contemporary issues.</p>
+      </div>
+
+      <div class="text-left p-8 card-bg rounded-xl">
+        <h3 class="text-primary mb-4 text-2xl font-semibold">🤝 Community Building</h3>
+        <p class="text-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Create lasting friendships and professional networks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Leadership Team -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="leaders">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-4">
+    Meet Our Leaders
+  </h2>
+  <p class="text-center mb-12 text-text opacity-100 text-lg">
+    Our dedicated team of officers working to make SASS amazing
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <template x-for="(leader, index) in leaders" :key="index">
+      <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center event-card-hover">
+        <div
+          class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4 bg-cover bg-center"
+          :style="leader.photo ? `background-image: url('${leader.photo}');` : ''">
+        </div>
+        <h3 class="text-xl font-semibold text-primary mb-2" x-text="leader.name"></h3>
+        <p class="text-text mb-4 font-medium" x-text="leader.role"></p>
+        <p class="text-text opacity-100 text-sm" x-text="leader.bio"></p>
+      </div>
+    </template>
+
+    <!-- Placeholder leaders when data is loading or empty -->
+    <template x-if="leaders.length === 0 && !loading">
+      <div>
+        <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center">
+          <div class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4"></div>
+          <h3 class="text-xl font-semibold text-primary mb-2">President Name</h3>
+          <p class="text-text mb-4 font-medium">President</p>
+          <p class="text-text opacity-100 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Passionate about South Asian culture and community building.</p>
+        </div>
+      </div>
+    </template>
+
+    <template x-if="leaders.length === 0 && !loading">
+      <div>
+        <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center">
+          <div class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4"></div>
+          <h3 class="text-xl font-semibold text-primary mb-2">Vice President Name</h3>
+          <p class="text-text mb-4 font-medium">Vice President</p>
+          <p class="text-text opacity-100 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dedicated to creating inclusive events for all members.</p>
+        </div>
+      </div>
+    </template>
+
+    <template x-if="leaders.length === 0 && !loading">
+      <div>
+        <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center">
+          <div class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4"></div>
+          <h3 class="text-xl font-semibold text-primary mb-2">Treasurer Name</h3>
+          <p class="text-text mb-4 font-medium">Treasurer</p>
+          <p class="text-text opacity-100 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Managing club finances and budgets responsibly.</p>
+        </div>
+      </div>
+    </template>
+
+    <template x-if="leaders.length === 0 && !loading">
+      <div>
+        <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center">
+          <div class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4"></div>
+          <h3 class="text-xl font-semibold text-primary mb-2">Secretary Name</h3>
+          <p class="text-text mb-4 font-medium">Secretary</p>
+          <p class="text-text opacity-100 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Keeping everyone organized and informed.</p>
+        </div>
+      </div>
+    </template>
+
+    <template x-if="leaders.length === 0 && !loading">
+      <div>
+        <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center">
+          <div class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4"></div>
+          <h3 class="text-xl font-semibold text-primary mb-2">Events Coordinator</h3>
+          <p class="text-text mb-4 font-medium">Events Coordinator</p>
+          <p class="text-text opacity-100 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Planning amazing cultural experiences.</p>
+        </div>
+      </div>
+    </template>
+
+    <template x-if="leaders.length === 0 && !loading">
+      <div>
+        <div class="leader-card-animate glass-effect border-primary rounded-xl p-6 text-center">
+          <div class="w-36 h-36 rounded-full bg-secondary mx-auto mb-4"></div>
+          <h3 class="text-xl font-semibold text-primary mb-2">Social Media Manager</h3>
+          <p class="text-text mb-4 font-medium">Social Media Manager</p>
+          <p class="text-text opacity-100 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sharing our story with the community.</p>
+        </div>
+      </div>
+    </template>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 section-overlay my-16">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+      What Our Members Say
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass-effect border-primary rounded-xl p-6 opacity-0 animate-fade-in" style="animation-delay: 0.1s; animation-fill-mode: forwards;">
+        <p class="italic mb-4 text-lg text-text">
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. SASS has been an incredible community where I've made lifelong friends!"
+        </p>
+        <p class="text-primary font-bold">- Student Name</p>
+      </div>
+
+      <div class="glass-effect border-primary rounded-xl p-6 opacity-0 animate-fade-in" style="animation-delay: 0.3s; animation-fill-mode: forwards;">
+        <p class="italic mb-4 text-lg text-text">
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. The events are always well-organized and so much fun!"
+        </p>
+        <p class="text-primary font-bold">- Student Name</p>
+      </div>
+
+      <div class="glass-effect border-primary rounded-xl p-6 opacity-0 animate-fade-in" style="animation-delay: 0.5s; animation-fill-mode: forwards;">
+        <p class="italic mb-4 text-lg text-text">
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Being part of SASS has helped me stay connected to my roots!"
+        </p>
+        <p class="text-primary font-bold">- Student Name</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="contact">
+  <h2 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+    Get In Touch
+  </h2>
+
+  <div class="max-w-2xl mx-auto">
+    <div class="glass-effect border-primary rounded-xl p-8 text-center">
+      <h3 class="text-primary mb-6 text-2xl font-semibold">Contact Information</h3>
+
+      <p class="mb-4 text-text">
+        <strong>Email:</strong> <a href="mailto:contact@sass.edu" class="text-primary hover:text-accent transition-colors duration-300">contact@sass.edu</a>
+      </p>
+
+      <p class="mb-4 text-text">
+        <strong>Follow us on social media for updates!</strong>
+      </p>
+
+      <div class="flex justify-center gap-8 mt-8">
+        <a href="#" class="social-icon-hover w-16 h-16 bg-secondary rounded-full flex items-center justify-center shadow-lg" aria-label="Instagram">
+          <span class="text-3xl">📷</span>
+        </a>
+        <a href="#" class="social-icon-hover w-16 h-16 bg-secondary rounded-full flex items-center justify-center shadow-lg" aria-label="Facebook">
+          <span class="text-3xl">👥</span>
+        </a>
+        <a href="#" class="social-icon-hover w-16 h-16 bg-secondary rounded-full flex items-center justify-center shadow-lg" aria-label="Twitter">
+          <span class="text-3xl">🐦</span>
+        </a>
+      </div>
+
+      <div class="mt-8">
+        <a href="/join/" class="btn-hover inline-block bg-primary text-light px-8 py-3 rounded-lg font-bold shadow-lg">
+          Join SASS Today
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
