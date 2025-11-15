@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "eleventy --serve --watch",
+    "build": "NODE_ENV=production eleventy",
+    "clean": "rm -rf _site"
   },
   "repository": {
     "type": "git",
@@ -13,12 +16,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Afternoon-Of-Code/club-website-biscuit/issues"
   },
   "homepage": "https://github.com/Afternoon-Of-Code/club-website-biscuit#readme",
   "devDependencies": {
-    "eleventy": "^2.0.0"
+    "@11ty/eleventy": "^3.1.2",
+    "autoprefixer": "^10.4.22",
+    "eleventy-plugin-postcss": "^3.0.1",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18"
   }
 }
